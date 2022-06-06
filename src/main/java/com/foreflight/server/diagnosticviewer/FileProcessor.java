@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -15,11 +16,12 @@ public class FileProcessor {
     private ArrayList<File> filesIncluded;
     private ArrayList<Directory> directoriesIncluded;
 
-    public FileProcessor(String filePath, String destName) {
+    public FileProcessor(String filePath, String destName) throws IOException {
         this.filePath = filePath;
         this.destName = destName;
         filesIncluded = new ArrayList<>();
         directoriesIncluded = new ArrayList<>();
+        unZip();
     }
 
     public String getAllFiles() {
@@ -30,12 +32,12 @@ public class FileProcessor {
             Directory current = directoriesIncluded.get(i);
             output += "\t" + current.name;
             for(int j = 0; j < current.files.size(); j++) {
-                output += "\n\t\t" + current.files.get(i).getName();
+                output += "\n\t\t" + current.files.get(j).getName();
             } output += "\n";
         } return output;
     }
 
-    /* Start of methods from https://www.baeldung.com/java-compress-and-uncompress
+    /* Start of methods from https://www.baeldung.com/java-compress-and-uncompress + some integrated data structures
      * Unzipping a compressed file and saving the files to destName.
      */
     private void unZip() throws IOException {
@@ -49,13 +51,13 @@ public class FileProcessor {
             if(zipEntry.isDirectory()) {
                 if(!newFile.isDirectory() && !newFile.mkdirs()) {
                     throw new IOException("Failed to create directory " + newFile);
-                } directoriesIncluded.add(new Directory(newFile.getName()));
+                } if(!directoriesIncluded.contains(newFile)) {directoriesIncluded.add(new Directory(newFile.getName())); }
             } else {
                 File parent = newFile.getParentFile();
                 if(!parent.isDirectory() && !parent.mkdirs()) {
                     throw new IOException("Failed to add child because parent directory not created - " + parent);
                 } FileOutputStream fos = new FileOutputStream(newFile);
-                if(parent.isDirectory()) { getDirectory(parent.getName()).addFile(newFile); }
+                if(parent.isDirectory() && !parent.getName().equals(destDir.getName())) { getDirectory(parent.getName()).addFile(newFile); }
                 else { filesIncluded.add(newFile); }
                 int length;
                 while((length = zis.read(buffer)) > 0) { fos.write(buffer, 0, length); }
@@ -66,12 +68,6 @@ public class FileProcessor {
     }
 
 
-    private Directory getDirectory(String name) {
-        for(int i = 0; i < directoriesIncluded.size(); i++) {
-            if(directoriesIncluded.get(i).name.equals(name)) { return directoriesIncluded.get(i); }
-        } return null;
-    }
-
     private File newFile(File destDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destDir, zipEntry.getName());
         String destDirPath = destDir.getCanonicalPath();
@@ -81,6 +77,13 @@ public class FileProcessor {
         } return destFile;
     }
     /* End of methods from https://www.baeldung.com/java-compress-and-uncompress */
+
+    private Directory getDirectory(String name) {
+        for(int i = 0; i < directoriesIncluded.size(); i++) {
+            if(directoriesIncluded.get(i).name.equals(name)) { return directoriesIncluded.get(i); }
+        } Directory newDirectory = new Directory(name);
+        return newDirectory;
+    }
 
     class Directory {
         private String name;
@@ -93,6 +96,20 @@ public class FileProcessor {
 
         private void addFile(File newFile) {
             files.add(newFile);
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Directory directory = (Directory) o;
+            return name.equals(directory.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
         }
     }
 
