@@ -1,2 +1,11 @@
 1654535949354:test
 1654536417034:q
+1654546927799:setZip Users/sydney/Downloads/DiagTest.zip
+1654546949171:set zip file directory sfsdfsdf
+1654547062768:set-zip Users/sydney/Downloads/DiagTest.zip
+1654547111113:set-new-dir Users/sydney/testing2.zip
+1654547151434:set-new-dir Users/sydney/Documents/testing2
+1654547154642:unzip
+1654547185110:set-zip /Users/sydney/Downloads/Diagnostics.zip
+1654547212904:set-new-dir /Users/sydney/Documents/testing2
+1654547215483:unzip
