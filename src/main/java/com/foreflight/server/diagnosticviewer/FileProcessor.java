@@ -97,7 +97,8 @@ public class FileProcessor {
         private void addFile(File newFile) {
             files.add(newFile);
         }
-
+        public ArrayList<File> getFiles() { return files; }
+        public String getName() { return name; }
 
         @Override
         public boolean equals(Object o) {
