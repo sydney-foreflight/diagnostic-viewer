@@ -2,6 +2,7 @@ package com.foreflight.server.diagnosticviewer;
 
 import javax.xml.crypto.Data;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DataEntry {
@@ -39,7 +40,8 @@ public class DataEntry {
 
     @Override
     public String toString() {
-        return id + " " + entryDateAndTime + "Z | ~" +  loggerType + "~ | -[ " + className + " " + methodName + " ]" + message;
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        return id + " " + format.format(entryDateAndTime) + "Z | ~" +  loggerType + "~ | -[" + className + " " + methodName + "]" + message;
     }
 
     public boolean isEarlier(DataEntry a) {
