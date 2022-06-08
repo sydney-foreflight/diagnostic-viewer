@@ -13,24 +13,27 @@ public class SmallParseTests {
 
     public static void main(String[] args) {
         ArrayList<DataEntry> myEntries = new ArrayList<>();
-        ArrayList<String> myStrings = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\d{1,}\\s\\d{2}-\\d{2}-\\d{4}");
-        File myFile = new File("/Users/sydney/Documents/syncParseTest.txt");
+        List<String> myStrings;
+        Pattern pattern = Pattern.compile("\\d{2}\\s\\d{2}-\\d{2}-\\d{4}"); //\\d{2}\\s\\d{2}-\\d{2}-\\d{4}"
+        File myFile = new File("/Users/sydney/Documents/testing/sync_insights");
 
 
         try {
             String syncInsight = new String(Files.readAllBytes(myFile.toPath()));
-            Matcher m = pattern.matcher(syncInsight);
-            int start = 0;
-            while(m.find(start)) {
-                int start1 = m.start() + 1;
-                if(m.find(start1)) { myStrings.add(syncInsight.substring((start1 - 1), m.start())); }
-                else { myStrings.add(syncInsight.substring(start)); }
-                start = start1;
-            }
+//            Matcher m = pattern.matcher(syncInsight);
+//            m.find();
+//            System.out.println("group count: " + m.groupCount());
+//            int start = 0;
+//            while(m.find(start)) {
+//                int start1 = m.start() + 1;
+//                if(m.find(start1)) { myStrings.add(syncInsight.substring((start1 - 1), m.start())); }
+//                else { myStrings.add(syncInsight.substring(start)); }
+//                start = start1;
+//            }
+            myStrings = Arrays.asList(syncInsight.split("(?=\\d{2}\\s\\d{2}-\\d{2}-\\d{4})"));
             for(int i = 0; i < myStrings.size(); i++) {
                 System.out.println(myStrings.get(i) + "\n\n");
-            }
+            } System.out.println("size of array: " + myStrings.size());
         }
 
         catch (Exception e){
