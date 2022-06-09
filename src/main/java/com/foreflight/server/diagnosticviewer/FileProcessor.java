@@ -1,3 +1,8 @@
+/* FileProcessor.java unzips a file and stores the file in the user-given directory.
+   Author: Sydney Thompson
+   Date: 06/09/22
+ */
+
 package com.foreflight.server.diagnosticviewer;
 
 import java.io.File;
@@ -11,8 +16,8 @@ import java.util.zip.ZipInputStream;
 
 public class FileProcessor {
 
-    private String filePath;
-    private String destName;
+    private final String filePath;
+    private final String destName;
     private ArrayList<File> filesIncluded;
     private ArrayList<Directory> directoriesIncluded;
 
@@ -66,7 +71,6 @@ public class FileProcessor {
         } zis.closeEntry();
         zis.close();
     }
-
 
     private File newFile(File destDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destDir, zipEntry.getName());

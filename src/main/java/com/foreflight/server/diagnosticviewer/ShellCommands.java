@@ -1,3 +1,9 @@
+/* ShellCommands.java creates the commands the Spring Shell can run with.
+   Author: Sydney Thompson
+   Date: 06/09/22
+ */
+
+
 package com.foreflight.server.diagnosticviewer;
 
 import org.springframework.shell.standard.ShellComponent;

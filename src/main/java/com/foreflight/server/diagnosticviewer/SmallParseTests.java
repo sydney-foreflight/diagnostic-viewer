@@ -1,3 +1,7 @@
+/* SmallParserTests.java is intended as a testing class in order to briefly check if parsers are working the correct way.
+   Author: Sydney Thompson
+   Date: 06/09/22
+ */
 package com.foreflight.server.diagnosticviewer;
 
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
@@ -23,12 +27,12 @@ public class SmallParseTests {
        // System.out.println(p.getBuckets());
         File masterFile = new File("/Users/sydney/Documents/testing/masterLog");
         printArray(p.masterLogParser(masterFile));
-        System.out.println(p.getUserDefaults() + p.getLastChangeAndShareSignatures());
+        //System.out.println(p.getUserDefaults() + p.getLastChangeAndShareSignatures());
     }
 
     private static void printArray(ArrayList<DataEntry> array) {
-       /* for(int i = 0; i < array.size(); i++) {
+        for(int i = 0; i < array.size(); i++) {
             System.out.println(array.get(i).toString());
-        } System.out.println("\n\n");*/
+        } System.out.println("\n\n");
     }
 }

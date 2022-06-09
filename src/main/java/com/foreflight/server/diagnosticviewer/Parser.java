@@ -1,6 +1,13 @@
+/* Parser.java parses different files depending on the method called. Mainly used to re-organize data into Object-centric structure.
+   Author: Sydney Thompson
+   Date: 06/09/22
+ */
+
+
 package com.foreflight.server.diagnosticviewer;
 
 import com.foreflight.server.diagnosticviewer.datastructures.BucketData;
+import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 import com.foreflight.server.diagnosticviewer.datastructures.Message;
 
@@ -38,12 +45,20 @@ public class Parser {
         return lastChangeAndShareSignatures;
     }
 
+    /* Parses stack files to create Crash objects.
+       @param stackDirect the directory to pull files from
+       @return an ArrayList of Crashes created
+     */
     public ArrayList<Crash> getStackCrashes(FileProcessor.Directory stackDirect) {
         ArrayList<Crash> stackCrashes = new ArrayList<>();
         //code for parsing + formatting crashes
         return stackCrashes;
     }
 
+    /* Parses the sync_insights file. Note: will also populate buckets ArrayList if applicable.
+       @param file the file to parse
+       @return ArrayList of the data entries pulled from sync_insights
+     */
     public ArrayList<DataEntry> syncParser(File file) {
         ArrayList<DataEntry> myEntries = new ArrayList<>();
         Pattern datePattern = Pattern.compile("\\d+\\s\\d{2}-\\d{2}-\\d{4}");
@@ -90,6 +105,10 @@ public class Parser {
         return myEntries;
     }
 
+
+    /* Parses the part of sync_insights that contains bucket info and stores data in buckets variable.
+       @param reader the BufferedReader used by syncParser in order to access appropriate section of sync_insights
+     */
     private void parseBucketData(BufferedReader reader) {
         String line;
         try {
@@ -132,6 +151,10 @@ public class Parser {
         }
     }
 
+    /* Parses the masterLog file by creating DataEntries. Will also call setUserDefaultsAndChangeSignatures if
+        needed to populate userDefaults and lastChangeAndShareSignatures.
+       @param file the file to parse
+     */
     public ArrayList<DataEntry> masterLogParser(File file) {
         ArrayList<DataEntry> myEntries = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -180,6 +203,10 @@ public class Parser {
         return myEntries;
     }
 
+    /* Called from masterLogParser. Will go through and add information to userDefaults and lastChangeAndShareSignatures based
+        on info from masterLog.
+       @param read the BufferedReader masterLogParser uses to access the correct section of the file
+     */
     private void setUserDefaultsAndChangeSignatures(BufferedReader read) {
         String line;
         Pattern endSection = Pattern.compile("^}");
