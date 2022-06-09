@@ -40,7 +40,7 @@ public class DataEntry {
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        return id + " " + format.format(entryDateAndTime) + "Z | ~" +  loggerType + "~ | -[" + className + " " + methodName + "]" + message;
+        return id + " " + format.format(entryDateAndTime) + "Z |  " +  loggerType + " | -[" + className + " " + methodName + "]" + message;
     }
 
     public boolean isEarlier(DataEntry a) {

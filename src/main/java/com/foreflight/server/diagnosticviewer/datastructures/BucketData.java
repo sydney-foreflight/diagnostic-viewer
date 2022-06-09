@@ -34,4 +34,10 @@ public class BucketData {
 
         public int getNumObjects() { return numObjects; }
 
+        @Override
+        public String toString() {
+            return String.format("Bucket Name: %s\nDisplay Name: %s\nLocal Pending Changes: %d\nLocal Enqueued Changes: %d\nLocal Enqueued Deletions: %d\nTotal Pending Changes: %d\nNumber of Objects: %d\n",
+                    name, displayName, localPendingChanges, localEnqChanges, localEnqDeletions, totalPendChanges, numObjects);
+        }
+
 }
