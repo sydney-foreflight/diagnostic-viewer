@@ -49,4 +49,11 @@ public class Crash {
         Crash crash = (Crash) o;
         return hardwareModel.equals(crash.hardwareModel) && Objects.equals(version, crash.version) && Objects.equals(crashTime, crash.crashTime) && applicationSpecificInfo.equals(crash.applicationSpecificInfo);
     }
+
+    @Override
+    public String toString() {
+        return String.format("hardware type: %s\nversion: %s\nDate/Time: %s\nApplication Specific Information: %s\n",
+                hardwareModel, version, crashTime.toString(), applicationSpecificInfo);
+    }
+
 }

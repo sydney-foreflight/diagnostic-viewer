@@ -10,6 +10,7 @@ import com.foreflight.server.diagnosticviewer.datastructures.BucketData;
 import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 import com.foreflight.server.diagnosticviewer.datastructures.Message;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,7 +52,42 @@ public class Parser {
      */
     public ArrayList<Crash> getStackCrashes(FileProcessor.Directory stackDirect) {
         ArrayList<Crash> stackCrashes = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //code for parsing + formatting crashes
+        for(int i = 0; i < stackDirect.getFiles().size(); i++) {
+            File file1 = stackDirect.getFiles().get(i);
+            try {
+                BufferedReader read = Files.newBufferedReader(file1.toPath());
+                String line;
+                read.readLine(); // Incident Identifier
+                line = read.readLine(); // Hardware Model
+                String hardWare = line.substring(line.indexOf(":") + 1).trim();
+                read.readLine(); //Process
+                read.readLine(); //Path
+                read.readLine(); //Identifier
+                line = read.readLine(); // Version
+                String version = line.substring(line.indexOf(":") + 1).trim();
+                read.readLine(); //Code Type
+                read.readLine(); // Parent Process
+                read.readLine(); //blank
+                line = read.readLine();
+                String time = line.substring(line.indexOf(":")+ 1, line.indexOf("+")).trim();
+                Date timeCrash = format.parse(time);
+                read.readLine(); //OS Version
+                read.readLine(); //Report Version
+                read.readLine(); //blank
+                read.readLine(); //exception type
+                read.readLine(); //exception codes
+                read.readLine(); //crashed thread
+                read.readLine(); //blank
+                read.readLine(); //title
+                String appInfo = read.readLine().trim(); //applicationSpecificInfo
+                stackCrashes.add(new Crash(hardWare, version, timeCrash, appInfo));
+            } catch (Exception e) {
+                System.out.println("Could not read " + file1.getName());
+                e.printStackTrace();
+            }
+        }
         return stackCrashes;
     }
 
