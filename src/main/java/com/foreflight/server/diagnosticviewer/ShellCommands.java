@@ -1,3 +1,9 @@
+/* ShellCommands.java creates the commands the Spring Shell can run with.
+   Author: Sydney Thompson
+   Date: 06/09/22
+ */
+
+
 package com.foreflight.server.diagnosticviewer;
 
 import org.springframework.shell.standard.ShellComponent;
@@ -26,11 +32,13 @@ public class ShellCommands {
 
     @ShellMethod("unzip")
     public String unzip() throws IOException {
-        if(zipFilePath.length() < 1) {
+        if (zipFilePath.length() < 1) {
             return "Please set path to zip file";
-        } if(saveFilePath.length() < 1) {
+        }
+        if (saveFilePath.length() < 1) {
             return "Please set a path to a new directory";
-        } reader = new FileProcessor(zipFilePath, saveFilePath);
+        }
+        reader = new FileProcessor(zipFilePath, saveFilePath);
         return reader.getAllFiles();
     }
 }
