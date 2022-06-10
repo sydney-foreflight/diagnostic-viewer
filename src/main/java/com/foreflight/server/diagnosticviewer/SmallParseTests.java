@@ -20,16 +20,17 @@ public class SmallParseTests {
     public static void main(String[] args) {
         ArrayList<DataEntry> myEntries = new ArrayList<>();
         List<String> myStrings;
-        File myFile = new File("/Users/sydney/Documents/testing/sync_insights");
+        File myFile = new File("/Users/sydney/Downloads/48177-Diagnostics/sync_insights");
         Parser p = new Parser();
-        //System.out.println(p.syncParser(myFile));
-        // System.out.println(p.getBuckets());
-        File masterFile = new File("/Users/sydney/Documents/testing/masterLog");
-        // printArray(p.masterLogParser(masterFile));
+
+        p.syncParser(myFile);
+        //System.out.println(p.getBuckets());
+        File masterFile = new File("/Users/sydney/Downloads/48177-Diagnostics/masterLog");
+        p.masterLogParser(masterFile);
         //System.out.println(p.getUserDefaults() + p.getLastChangeAndShareSignatures());
 
         File stackFile = new File("/Users/sydney/Documents/testing/stack_reports_sync/153943803");
-        printArray(getStackCrashes(stackFile));
+        // printArray(getStackCrashes(stackFile));
 
     }
 

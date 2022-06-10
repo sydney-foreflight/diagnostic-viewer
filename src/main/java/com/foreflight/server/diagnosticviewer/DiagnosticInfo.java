@@ -7,6 +7,7 @@
 
 package com.foreflight.server.diagnosticviewer;
 
+import com.foreflight.server.diagnosticviewer.datastructures.BucketData;
 import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 
@@ -23,18 +24,24 @@ public class DiagnosticInfo {
     public DiagnosticInfo(ArrayList<File> filesIncluded, ArrayList<FileProcessor.Directory> directories) {
         this.filesIncluded = filesIncluded;
         this.directories = directories;
-        parse();
+        crashes = new ArrayList<>();
     }
 
     /* Main runner for DiagnosticInfo. Looks at what files are included and performs parsing,
-        then appropriate data collection and analysis.
+        then appropriate data collection and analysis. After parsing files, creates a DataAnalysis
+        object.
+        @return DataAnalysis object containing information parsed from diagnostic files to give caller access to
+            analysis techniques
      */
-    private void parse() {
+    public DataAnalysis parse() {
         Parser myParser = new Parser();
         //first look through stack report files and create Crash objects if applicable
         ArrayList<FileProcessor.Directory> stackDirectories = getStackDirectories(directories);
         for (int i = 0; i < stackDirectories.size(); i++) {
-            crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
+            ArrayList<Crash> getting = myParser.getStackCrashes(stackDirectories.get(i));
+            if (getting.size() > 0) {
+                crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
+            }
         }
 
         // then go through sync_insights and masterLog to construct DataEntry objects and Buckets\
@@ -44,14 +51,24 @@ public class DiagnosticInfo {
                 /* only allow DataEntries in arraylist if within 5 min of crash? -> ind data structures for containing
                     all dataEntries for each crash -> should create conditional if crash times close together? */
         File myFile = containsFile("sync_insights", filesIncluded);
+        ArrayList<DataEntry> syncData = new ArrayList<>();
+        ArrayList<BucketData> allBuckets = new ArrayList<>();
+        ArrayList<DataEntry> masterLogData = new ArrayList<>();
+        String userDefaults = "";
+        String lastChangeAndShareSignatures = "";
         if (myFile != null) {
-            ArrayList<DataEntry> syncData = myParser.syncParser(myFile);
+            syncData = myParser.syncParser(myFile);
+            allBuckets = myParser.getBuckets();
         }
         myFile = containsFile("masterLog", filesIncluded);
         if (myFile != null) {
-            ArrayList<DataEntry> masterLogData = myParser.masterLogParser(myFile);
+            masterLogData = myParser.masterLogParser(myFile);
+            userDefaults = myParser.getUserDefaults();
+            lastChangeAndShareSignatures = myParser.getLastChangeAndShareSignatures();
         }
         // go through remaining files
+        DataAnalysis myAnalysis = new DataAnalysis(syncData, masterLogData, userDefaults, lastChangeAndShareSignatures, allBuckets, crashes);
+        return myAnalysis;
     }
 
 

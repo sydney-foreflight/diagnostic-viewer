@@ -153,10 +153,20 @@ public class Parser {
                     String name = line.substring(line.indexOf(":") + 2);
                     line = reader.readLine() + " " + reader.readLine() + " " + reader.readLine() + " " +
                             reader.readLine() + " " + reader.readLine() + " " + reader.readLine(); //reads all lines for one bucket together
+
+                    if (line.contains("Conditional Sync")) {
+                        line += " \n" + reader.readLine();
+                    } //System.out.println(line);
+                    String conditionalSync = "";
                     Scanner s = new Scanner(line);
                     s.next();
                     s.next();
                     String displayName = s.next();
+                    if (line.contains("Conditional Sync")) {
+                        s.next();
+                        s.next();
+                        conditionalSync = s.next();
+                    }
                     s.next();
                     s.next();
                     s.next();
@@ -177,7 +187,8 @@ public class Parser {
                     s.next();
                     s.next();
                     int totalNumObjects = s.nextInt();
-                    buckets.add(new BucketData(name, displayName, localPendChanges, localEnqChanges, localEnqDeletions, totalPendChanges, totalNumObjects));
+                    buckets.add(new BucketData(name, displayName, localPendChanges, localEnqChanges, localEnqDeletions,
+                            totalPendChanges, totalNumObjects, conditionalSync));
                 }
             }
         } catch (Exception e) {
@@ -191,6 +202,7 @@ public class Parser {
        @param file the file to parse
      */
     public ArrayList<DataEntry> masterLogParser(File file) {
+        //System.out.println(file.getName());
         ArrayList<DataEntry> myEntries = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         Pattern datePattern = Pattern.compile("\\d+\\s\\d{2}-\\d{2}-\\d{4}");
@@ -209,10 +221,20 @@ public class Parser {
                     s.next(); //going through '|'
                     String loggerType = s.next();
                     s.next(); // passing '|'
-                    line = line.substring(line.indexOf("[") + 1);
-                    String className = line.substring(0, line.indexOf(" "));
-                    String methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));
-                    String message = line.substring(line.indexOf("]") + 1);
+                    String className;
+                    String methodName;
+                    String message;
+                    if (line.contains("[")) {
+                        line = line.substring(line.indexOf("[") + 1);
+                        className = line.substring(0, line.indexOf(" "));
+                        methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));
+                        message = line.substring(line.indexOf("]") + 1);
+                    } else {
+                        String combined = s.next();
+                        className = combined.substring(0, combined.indexOf("("));
+                        methodName = combined.substring(combined.indexOf("("), combined.indexOf(")") + 1);
+                        message = line.substring(line.indexOf(")") + 1);
+                    }
                     s.close();
                     //System.out.println(id + " " + dateAndTime + " " + methodName);
                     if (methodName.equals("logSyncURLsWithMessage:")) {

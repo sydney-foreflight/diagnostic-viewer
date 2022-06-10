@@ -65,7 +65,9 @@ public class DataEntry {
     }
 
     public boolean isEarlier(DataEntry a) {
-        if (a.getEntryDateAndTime().before(this.entryDateAndTime)) return true;
+        if (a.getEntryDateAndTime().before(this.entryDateAndTime)) {
+            return true;
+        }
         return false;
     }
 }
