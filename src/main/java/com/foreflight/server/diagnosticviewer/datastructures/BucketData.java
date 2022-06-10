@@ -9,6 +9,8 @@ public class BucketData {
     private final int totalPendChanges;
     private final int numObjects;
 
+    private final boolean flag;
+
     public BucketData(String name, String displayName, int localPendingChanges, int localEnqChanges,
                       int localEnqDeletions, int totalPendChanges, int numObjects) {
         this.name = name;
@@ -18,6 +20,11 @@ public class BucketData {
         this.localEnqDeletions = localEnqDeletions;
         this.totalPendChanges = totalPendChanges;
         this.numObjects = numObjects;
+        if(localEnqChanges > 0 || localPendingChanges > 0 || localEnqDeletions > 0 || totalPendChanges > 0) {
+            flag = true;
+        } else {
+            flag = false;
+        }
     }
 
     public String getName() {
