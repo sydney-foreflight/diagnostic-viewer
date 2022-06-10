@@ -6,12 +6,16 @@
 
 package com.foreflight.server.diagnosticviewer;
 
+import com.foreflight.server.diagnosticviewer.datastructures.BucketData;
 import com.foreflight.server.diagnosticviewer.datastructures.Crash;
+import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 @ShellComponent
 public class ShellCommands {
@@ -44,8 +48,7 @@ public class ShellCommands {
         reader = new FileProcessor(zipFilePath, saveFilePath);
         DiagnosticInfo myInfo = new DiagnosticInfo(reader.getFilesIncluded(), reader.getDirectoriesIncluded());
         analysis = myInfo.parse();
-        return " ";
-        //return reader.getAllFiles();
+        return reader.getAllFiles();
     }
 
     @ShellMethod("get crashes")
@@ -60,5 +63,29 @@ public class ShellCommands {
             }
             return s;
         }
+    }
+
+    @ShellMethod("Get timelines")
+    public String timelines(int a, int b) {
+        ArrayList<Set<DataEntry>> myEntries = analysis.getEntriesAroundCrashes(a, b);
+        String s = "";
+        for(int i = 0; i < myEntries.size(); i++) {
+            s += "Crash " + i + ": \n" + analysis.getCrashes().get(i) + "\nDiagnostic Entries:\n";
+            Iterator read = myEntries.get(i).iterator();
+            while(read.hasNext()) {
+                s += read.next() + "\n";
+            } s += "------------------------\n";
+        } return s;
+    }
+
+    @ShellMethod("Getting flagged buckets")
+    public String flagBuckets() {
+        String s = "";
+        ArrayList<BucketData> data = analysis.getFlaggedBuckets();
+        if(data.size() == 0) {
+            return "No buckets had any pending changes.\n";
+        } for(int i = 0; i < data.size(); i++) {
+            s += "\n" + data.get(i) + "\n-------------";
+        } return s;
     }
 }

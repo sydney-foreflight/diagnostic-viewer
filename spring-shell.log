@@ -46,3 +46,31 @@
 1654882822754:help
 1654882826823:get-crashes
 1654883110395:quit
+1654885903487:set-zip /Users/sydney/Downloads/DiagTest.zip
+1654885918660:set-save-dir /Users/sydney/Documents/testing3
+1654885921799:unzip
+1654885929194:crash
+1654885937377:get-crashes
+1654886077568:set-zip /Users/sydney/Downloads/51992-Jeremy-Katz-Diagnostics.zip
+1654886080998:unzip
+1654886092107:get-crashes
+1654886224321:set-save-dir /Users/sydney/Documents/testing
+1654886226906:unzip
+1654886336724:set-zip /Users/sydney/Downloads/51992-Jeremy-Katz-Diagnostics.zip
+1654886339077:unzip
+1654886347859:get-crashes
+1654891853524:set-zip /Users/sydney/Downloads/DiagTest.zip
+1654891872082:set-save-dir /Users/sydney/Downloads/testing
+1654891880648:unzip
+1654891886882:help
+1654891892787:get-crashes
+1654891896463:get-timelines
+1654891903110:timelines
+1654891908493:timelines 1 1
+1654892059601:quit
+1654892227287:unzip
+1654892234648:set-zip /Users/sydney/Downloads/DiagTest.zip
+1654892246406:set-save-dir /Users/sydney/Documents/testing
+1654892247995:unzip
+1654892257451:flag-buckets
+1654892273434:quit
