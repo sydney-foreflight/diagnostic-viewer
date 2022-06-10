@@ -6,6 +6,7 @@
 
 
 package com.foreflight.server.diagnosticviewer;
+
 import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 
@@ -17,7 +18,6 @@ public class DiagnosticInfo {
     private final ArrayList<File> filesIncluded;
     private final ArrayList<FileProcessor.Directory> directories;
     private ArrayList<Crash> crashes;
-
 
 
     public DiagnosticInfo(ArrayList<File> filesIncluded, ArrayList<FileProcessor.Directory> directories) {
@@ -33,7 +33,7 @@ public class DiagnosticInfo {
         Parser myParser = new Parser();
         //first look through stack report files and create Crash objects if applicable
         ArrayList<FileProcessor.Directory> stackDirectories = getStackDirectories(directories);
-        for(int i = 0 ; i < stackDirectories.size(); i++) {
+        for (int i = 0; i < stackDirectories.size(); i++) {
             crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
         }
 
@@ -60,8 +60,8 @@ public class DiagnosticInfo {
        @return ArrayList of directories that hold stack reports (note: no stack attachments reports included */
     private static ArrayList<FileProcessor.Directory> getStackDirectories(ArrayList<FileProcessor.Directory> directories1) {
         ArrayList<FileProcessor.Directory> stackDirectories = new ArrayList<>();
-        for(int i = 0; i < directories1.size(); i++) {
-            if(directories1.get(i).getName().contains("stack_reports") && !directories1.get(i).getName().contains("attachments")) {
+        for (int i = 0; i < directories1.size(); i++) {
+            if (directories1.get(i).getName().contains("stack_reports") && !directories1.get(i).getName().contains("attachments")) {
                 stackDirectories.add(directories1.get(i));
             }
         }

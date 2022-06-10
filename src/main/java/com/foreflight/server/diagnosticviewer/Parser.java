@@ -10,7 +10,6 @@ import com.foreflight.server.diagnosticviewer.datastructures.BucketData;
 import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 import com.foreflight.server.diagnosticviewer.datastructures.Message;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,7 +53,7 @@ public class Parser {
         ArrayList<Crash> stackCrashes = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //code for parsing + formatting crashes
-        for(int i = 0; i < stackDirect.getFiles().size(); i++) {
+        for (int i = 0; i < stackDirect.getFiles().size(); i++) {
             File file1 = stackDirect.getFiles().get(i);
             try {
                 BufferedReader read = Files.newBufferedReader(file1.toPath());
@@ -71,7 +70,7 @@ public class Parser {
                 read.readLine(); // Parent Process
                 read.readLine(); //blank
                 line = read.readLine();
-                String time = line.substring(line.indexOf(":")+ 1, line.indexOf("+")).trim();
+                String time = line.substring(line.indexOf(":") + 1, line.indexOf("+")).trim();
                 Date timeCrash = format.parse(time);
                 read.readLine(); //OS Version
                 read.readLine(); //Report Version
@@ -105,7 +104,7 @@ public class Parser {
             while ((line = read.readLine()) != null) {
                 //System.out.printf("Scanned line " +  line +"\n");
                 Matcher m = datePattern.matcher(line);
-                if(m.find()) {
+                if (m.find()) {
                     Scanner s = new Scanner(line);
                     int id = s.nextInt();
                     String dateAndTime = s.next() + " " + s.next();
@@ -120,20 +119,21 @@ public class Parser {
                     String message = line.substring(line.indexOf("]") + 1);
                     s.close();
                     // System.out.printf("id: %d, date: %s, class: %s, method: %s\n\n", id, entry.toString(), className, methodName);
-                    if(line.indexOf("{(") != -1) {
-                        while((line = read.readLine()) != null) {
+                    if (line.indexOf("{(") != -1) {
+                        while ((line = read.readLine()) != null) {
                             message += "\n" + line;
-                            if(line.indexOf(")}") != -1) {
+                            if (line.indexOf(")}") != -1) {
                                 break;
                             }
                         }
-                    } else if(methodName.equals("backgroundDiagnosticFiles:")) {
+                    } else if (methodName.equals("backgroundDiagnosticFiles:")) {
                         parseBucketData(read);
                     }
                     DataEntry entry1 = new DataEntry(new Message(message), id, file, entry, loggerType, className, methodName);
                     myEntries.add(entry1);
                 }
-            } read.close();
+            }
+            read.close();
         } catch (Exception e) {
             System.out.println("could not read sync file");
             e.printStackTrace();
@@ -149,7 +149,7 @@ public class Parser {
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                if(line.contains("Bucket Name")) {
+                if (line.contains("Bucket Name")) {
                     String name = line.substring(line.indexOf(":") + 2);
                     line = reader.readLine() + " " + reader.readLine() + " " + reader.readLine() + " " +
                             reader.readLine() + " " + reader.readLine() + " " + reader.readLine(); //reads all lines for one bucket together
@@ -180,8 +180,7 @@ public class Parser {
                     buckets.add(new BucketData(name, displayName, localPendChanges, localEnqChanges, localEnqDeletions, totalPendChanges, totalNumObjects));
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error transitioning to reading bucket data");
             e.printStackTrace();
         }
@@ -201,7 +200,7 @@ public class Parser {
             String line;
             while ((line = read.readLine()) != null) {
                 Matcher m = datePattern.matcher(line);
-                if(m.find()) {
+                if (m.find()) {
                     Scanner s = new Scanner(line);
                     int id = s.nextInt();
                     String dateAndTime = s.next() + " " + s.next();
@@ -221,9 +220,9 @@ public class Parser {
                         // System.out.println(message);
                     } else if (methodName.equals("logUserDefaults")) {
                         setUserDefaultsAndChangeSignatures(read);
-                    } else if(message.contains("{")) {
+                    } else if (message.contains("{")) {
                         Matcher seeEnd = endPattern.matcher(line);
-                        while(!seeEnd.find()) {
+                        while (!seeEnd.find()) {
                             line = read.readLine();
                             message += "\n" + line;
                             seeEnd = endPattern.matcher(line);
@@ -231,7 +230,8 @@ public class Parser {
                     }
                     myEntries.add(new DataEntry(new Message(message), id, file, entry, loggerType, className, methodName));
                 }
-            } read.close();
+            }
+            read.close();
         } catch (Exception e) {
             System.out.println("Could not read masterLog file. ");
             e.printStackTrace();
@@ -248,16 +248,17 @@ public class Parser {
         Pattern endSection = Pattern.compile("^}");
         try {
             while ((line = read.readLine()) != null) {
-                if(line.contains("lastChange") || line.contains("lastShared")) {
+                if (line.contains("lastChange") || line.contains("lastShared")) {
                     lastChangeAndShareSignatures += line + "\n";
                 } else {
                     userDefaults += line + "\n";
-                } Matcher m = endSection.matcher(line);
-                if(m.matches()) { //if end of section, goes back to process masterLog line by line
+                }
+                Matcher m = endSection.matcher(line);
+                if (m.matches()) { //if end of section, goes back to process masterLog line by line
                     break;
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error getting user defaults from masterLog");
             e.printStackTrace();
         }

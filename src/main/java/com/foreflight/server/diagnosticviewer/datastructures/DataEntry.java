@@ -29,28 +29,43 @@ public class DataEntry {
         this.className = className;
         this.methodName = methodName;
     }
-    public Message getMessage() { return message; }
 
-    public int getId() { return id; }
+    public Message getMessage() {
+        return message;
+    }
 
-    public File getFileFrom() { return fileFrom; }
+    public int getId() {
+        return id;
+    }
 
-    public Date getEntryDateAndTime() { return entryDateAndTime; }
+    public File getFileFrom() {
+        return fileFrom;
+    }
 
-    public String getLoggerType() { return loggerType; }
+    public Date getEntryDateAndTime() {
+        return entryDateAndTime;
+    }
 
-    public String getClassName() { return className; }
+    public String getLoggerType() {
+        return loggerType;
+    }
 
-    public String getMethodName() { return methodName; }
+    public String getClassName() {
+        return className;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
 
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        return id + " " + format.format(entryDateAndTime) + "Z |  " +  loggerType + " | -[" + className + " " + methodName + "]" + message;
+        return id + " " + format.format(entryDateAndTime) + "Z |  " + loggerType + " | -[" + className + " " + methodName + "]" + message;
     }
 
     public boolean isEarlier(DataEntry a) {
-        if(a.getEntryDateAndTime().before(this.entryDateAndTime)) return true;
+        if (a.getEntryDateAndTime().before(this.entryDateAndTime)) return true;
         return false;
     }
 }
