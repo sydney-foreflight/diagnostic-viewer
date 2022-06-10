@@ -28,11 +28,12 @@ public class DataAnalysis {
 
     public ArrayList<BucketData> getFlaggedBuckets() {
         ArrayList<BucketData> flagged = new ArrayList<>();
-       for(int i = 0; i < buckets.size(); i++) {
-           if(buckets.get(i).isFlagged()) {
-               flagged.add(buckets.get(i));
-           }
-       } return flagged;
+        for (int i = 0; i < buckets.size(); i++) {
+            if (buckets.get(i).isFlagged()) {
+                flagged.add(buckets.get(i));
+            }
+        }
+        return flagged;
     }
 
     public ArrayList<DataEntry> getSyncInfo() {

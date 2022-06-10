@@ -154,7 +154,7 @@ public class Parser {
                     line = reader.readLine() + " " + reader.readLine() + " " + reader.readLine() + " " +
                             reader.readLine() + " " + reader.readLine() + " " + reader.readLine(); //reads all lines for one bucket together
 
-                    if(line.contains("Conditional Sync")) {
+                    if (line.contains("Conditional Sync")) {
                         line += " \n" + reader.readLine();
                     } //System.out.println(line);
                     String conditionalSync = "";
@@ -162,7 +162,7 @@ public class Parser {
                     s.next();
                     s.next();
                     String displayName = s.next();
-                    if(line.contains("Conditional Sync")) {
+                    if (line.contains("Conditional Sync")) {
                         s.next();
                         s.next();
                         conditionalSync = s.next();
@@ -224,7 +224,7 @@ public class Parser {
                     String className;
                     String methodName;
                     String message;
-                    if(line.contains("[")) {
+                    if (line.contains("[")) {
                         line = line.substring(line.indexOf("[") + 1);
                         className = line.substring(0, line.indexOf(" "));
                         methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));

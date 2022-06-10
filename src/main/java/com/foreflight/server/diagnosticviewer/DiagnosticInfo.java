@@ -39,7 +39,7 @@ public class DiagnosticInfo {
         ArrayList<FileProcessor.Directory> stackDirectories = getStackDirectories(directories);
         for (int i = 0; i < stackDirectories.size(); i++) {
             ArrayList<Crash> getting = myParser.getStackCrashes(stackDirectories.get(i));
-            if(getting.size() > 0) {
+            if (getting.size() > 0) {
                 crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
             }
         }

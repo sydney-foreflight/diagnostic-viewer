@@ -55,9 +55,10 @@ public class ShellCommands {
             return "Stack reports not found. No specific crashes.";
         } else {
             String s = "Crashes detected from stack reports: \n";
-            for(int i = 0; i < myCrashes.size(); i++) {
+            for (int i = 0; i < myCrashes.size(); i++) {
                 s += "\n" + myCrashes.get(i);
-            } return s;
+            }
+            return s;
         }
     }
 }

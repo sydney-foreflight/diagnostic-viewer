@@ -8,7 +8,6 @@ public class BucketData {
     private final int localEnqDeletions;
     private final int totalPendChanges;
     private final int numObjects;
-
     private final String conditionalSync;
     private final boolean flag;
 
@@ -22,8 +21,10 @@ public class BucketData {
         this.totalPendChanges = totalPendChanges;
         this.numObjects = numObjects;
         this.conditionalSync = conditionalSync;
-        if(conditionalSync.length() == 0) { conditionalSync = "NA"; }
-        if(localEnqChanges > 0 || localPendingChanges > 0 || localEnqDeletions > 0 || totalPendChanges > 0 ||
+        if (conditionalSync.length() == 0) {
+            conditionalSync = "NA";
+        }
+        if (localEnqChanges > 0 || localPendingChanges > 0 || localEnqDeletions > 0 || totalPendChanges > 0 ||
                 conditionalSync.equalsIgnoreCase("true")) {
             flag = true;
         } else {
@@ -65,8 +66,8 @@ public class BucketData {
 
     @Override
     public String toString() {
-        return String.format("Bucket Name: %s\nDisplay Name: %s\nLocal Pending Changes: %d\nLocal Enqueued Changes: %d\nLocal Enqueued Deletions: %d\nTotal Pending Changes: %d\nNumber of Objects: %d\n",
-                name, displayName, localPendingChanges, localEnqChanges, localEnqDeletions, totalPendChanges, numObjects);
+        return String.format("Bucket Name: %s\nDisplay Name: %s\nConditional Sync: %s\nLocal Pending Changes: %d\nLocal Enqueued Changes: %d\nLocal Enqueued Deletions: %d\nTotal Pending Changes: %d\nNumber of Objects: %d\n",
+                name, displayName, conditionalSync, localPendingChanges, localEnqChanges, localEnqDeletions, totalPendChanges, numObjects);
     }
 
 }

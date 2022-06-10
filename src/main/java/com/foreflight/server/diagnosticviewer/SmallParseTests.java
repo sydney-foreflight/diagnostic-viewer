@@ -30,7 +30,7 @@ public class SmallParseTests {
         //System.out.println(p.getUserDefaults() + p.getLastChangeAndShareSignatures());
 
         File stackFile = new File("/Users/sydney/Documents/testing/stack_reports_sync/153943803");
-       // printArray(getStackCrashes(stackFile));
+        // printArray(getStackCrashes(stackFile));
 
     }
 
