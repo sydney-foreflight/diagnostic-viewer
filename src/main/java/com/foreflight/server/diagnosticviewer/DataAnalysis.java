@@ -35,4 +35,27 @@ public class DataAnalysis {
        } return flagged;
     }
 
+    public ArrayList<DataEntry> getSyncInfo() {
+        return syncInfo;
+    }
+
+    public ArrayList<DataEntry> getMasterLogInfo() {
+        return masterLogInfo;
+    }
+
+    public String getUserDefaults() {
+        return userDefaults;
+    }
+
+    public String getLastChangeAndShareSignatures() {
+        return lastChangeAndShareSignatures;
+    }
+
+    public ArrayList<BucketData> getBuckets() {
+        return buckets;
+    }
+
+    public ArrayList<Crash> getCrashes() {
+        return crashes;
+    }
 }

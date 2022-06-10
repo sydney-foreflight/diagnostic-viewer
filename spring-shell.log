@@ -14,3 +14,34 @@
 1654611088180:exit
 1654785063957:help
 1654806677761:quit
+1654878278400:help
+1654878829819:set-zip /Users/sydney/Downloads/48177-Diagnostics
+1654878863259:set-save-dir /Users/sydney/Documents/testing3
+1654878868559:unzip
+1654878975665:set-save-dir /Users/sydney/Documents/testing3
+1654879006637:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654879010616:unzip
+1654879018634:stacktrace
+1654879201332:set-save-dir /Users/sydney/Documents/testing3
+1654879203036:unzip
+1654879211203:stacktrace
+1654879239681:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654879255959:set-save-dir /Users/sydney/Documents/testing3
+1654879258025:unzip
+1654879368312:quit
+1654879407881:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654879429826:set-save-dir /Users/sydney/Documents/testing3
+1654879431509:unzip
+1654879542114:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654879561882:set-save-dir /Users/sydney/Documents/testing3
+1654879564380:unzip
+1654882226738:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654882241336:set-new-dir Users/sydney/Documents/testing3
+1654882248383:help
+1654882277310:set-save-dir /Users/sydney/Documents/testing3
+1654882279807:unzip
+1654882796635:set-zip /Users/sydney/Downloads/48177-Diagnostics.zip
+1654882809905:set-save-dir /Users/sydney/Documents/testing3
+1654882811892:unzip
+1654882822754:help
+1654882826823:get-crashes

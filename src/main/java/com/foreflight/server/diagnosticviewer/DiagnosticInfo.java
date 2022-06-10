@@ -24,6 +24,7 @@ public class DiagnosticInfo {
     public DiagnosticInfo(ArrayList<File> filesIncluded, ArrayList<FileProcessor.Directory> directories) {
         this.filesIncluded = filesIncluded;
         this.directories = directories;
+        crashes = new ArrayList<>();
     }
 
     /* Main runner for DiagnosticInfo. Looks at what files are included and performs parsing,
@@ -37,7 +38,10 @@ public class DiagnosticInfo {
         //first look through stack report files and create Crash objects if applicable
         ArrayList<FileProcessor.Directory> stackDirectories = getStackDirectories(directories);
         for (int i = 0; i < stackDirectories.size(); i++) {
-            crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
+            ArrayList<Crash> getting = myParser.getStackCrashes(stackDirectories.get(i));
+            if(getting.size() > 0) {
+                crashes.addAll(myParser.getStackCrashes(stackDirectories.get(i)));
+            }
         }
 
         // then go through sync_insights and masterLog to construct DataEntry objects and Buckets\
