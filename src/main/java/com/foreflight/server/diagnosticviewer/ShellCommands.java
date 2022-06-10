@@ -18,6 +18,8 @@ public class ShellCommands {
     String saveFilePath = "";
     FileProcessor reader;
 
+    DataAnalysis analysis;
+
     @ShellMethod("Set zip file directory")
     public String setZip(String s) {
         zipFilePath = s;
@@ -39,6 +41,8 @@ public class ShellCommands {
             return "Please set a path to a new directory";
         }
         reader = new FileProcessor(zipFilePath, saveFilePath);
+        DiagnosticInfo myInfo = new DiagnosticInfo(reader.getFilesIncluded(), reader.getDirectoriesIncluded());
+        analysis = myInfo.parse();
         return reader.getAllFiles();
     }
 }

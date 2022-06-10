@@ -27,6 +27,10 @@ public class BucketData {
         }
     }
 
+    public boolean isFlagged() {
+        return flag;
+    }
+
     public String getName() {
         return name;
     }

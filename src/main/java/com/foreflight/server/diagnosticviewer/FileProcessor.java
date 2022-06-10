@@ -45,6 +45,14 @@ public class FileProcessor {
         return output;
     }
 
+    public ArrayList<File> getFilesIncluded() {
+        return filesIncluded;
+    }
+
+    public ArrayList<Directory> getDirectoriesIncluded() {
+        return directoriesIncluded;
+    }
+
     /* Start of methods from https://www.baeldung.com/java-compress-and-uncompress + some integrated data structures
      * Unzipping a compressed file and saving the files to destName.
      */
