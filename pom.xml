@@ -27,6 +27,13 @@
             <artifactId>spring-shell-starter</artifactId>
             <version>2.0.1.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.foreflight.server</groupId>
+            <artifactId>syncserver-api</artifactId>
+            <version>1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

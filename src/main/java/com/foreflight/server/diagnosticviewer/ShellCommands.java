@@ -1,6 +1,4 @@
-/* ShellCommands.java creates the commands the Spring Shell can run with.
-   Author: Sydney Thompson
-   Date: 06/09/22
+/** ShellCommands.java creates the commands the Spring Shell can run with.
  */
 
 

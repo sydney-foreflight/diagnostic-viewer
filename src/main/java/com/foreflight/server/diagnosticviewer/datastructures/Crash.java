@@ -1,7 +1,5 @@
-/* Crash.java is an immutable data organization class. For each crash collected by stack_reports, a Crash object is created and holds
+/** Crash.java is an immutable data organization class. For each crash collected by stack_reports, a Crash object is created and holds
     the below info.
-   Author: Sydney Thompson
-   Date: 06/09/22
  */
 
 package com.foreflight.server.diagnosticviewer.datastructures;

@@ -1,6 +1,4 @@
-/* SmallParserTests.java is intended as a testing class in order to briefly check if parsers are working the correct way.
-   Author: Sydney Thompson
-   Date: 06/09/22
+/** SmallParserTests.java is intended as a testing class in order to briefly check if parsers are working the correct way.
  */
 package com.foreflight.server.diagnosticviewer;
 

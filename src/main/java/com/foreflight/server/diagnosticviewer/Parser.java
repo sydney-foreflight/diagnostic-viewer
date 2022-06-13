@@ -1,6 +1,4 @@
-/* Parser.java parses different files depending on the method called. Mainly used to re-organize data into Object-centric structure.
-   Author: Sydney Thompson
-   Date: 06/09/22
+/** Parser.java parses different files depending on the method called. Mainly used to re-organize data into Object-centric structure.
  */
 
 
@@ -45,7 +43,7 @@ public class Parser {
         return lastChangeAndShareSignatures;
     }
 
-    /* Parses stack files to create Crash objects.
+    /** Parses stack files to create Crash objects.
        @param stackDirect the directory to pull files from
        @return an ArrayList of Crashes created
      */
@@ -90,7 +88,7 @@ public class Parser {
         return stackCrashes;
     }
 
-    /* Parses the sync_insights file. Note: will also populate buckets ArrayList if applicable.
+    /** Parses the sync_insights file. Note: will also populate buckets ArrayList if applicable.
        @param file the file to parse
        @return ArrayList of the data entries pulled from sync_insights
      */
@@ -142,7 +140,7 @@ public class Parser {
     }
 
 
-    /* Parses the part of sync_insights that contains bucket info and stores data in buckets variable.
+    /** Parses the part of sync_insights that contains bucket info and stores data in buckets variable.
        @param reader the BufferedReader used by syncParser in order to access appropriate section of sync_insights
      */
     private void parseBucketData(BufferedReader reader) {
@@ -197,7 +195,7 @@ public class Parser {
         }
     }
 
-    /* Parses the masterLog file by creating DataEntries. Will also call setUserDefaultsAndChangeSignatures if
+    /** Parses the masterLog file by creating DataEntries. Will also call setUserDefaultsAndChangeSignatures if
         needed to populate userDefaults and lastChangeAndShareSignatures.
        @param file the file to parse
      */
@@ -261,7 +259,7 @@ public class Parser {
         return myEntries;
     }
 
-    /* Called from masterLogParser. Will go through and add information to userDefaults and lastChangeAndShareSignatures based
+    /** Called from masterLogParser. Will go through and add information to userDefaults and lastChangeAndShareSignatures based
         on info from masterLog.
        @param read the BufferedReader masterLogParser uses to access the correct section of the file
      */

@@ -1,6 +1,4 @@
-/* FileProcessor.java unzips a file and stores the file in the user-given directory.
-   Author: Sydney Thompson
-   Date: 06/09/22
+/** FileProcessor.java unzips a file and stores the file in the user-given directory.
  */
 
 package com.foreflight.server.diagnosticviewer;
@@ -53,7 +51,7 @@ public class FileProcessor {
         return directoriesIncluded;
     }
 
-    /* Start of methods from https://www.baeldung.com/java-compress-and-uncompress + some integrated data structures
+    /** Start of methods from https://www.baeldung.com/java-compress-and-uncompress + some integrated data structures
      * Unzipping a compressed file and saving the files to destName.
      */
     private void unZip() throws IOException {
@@ -103,7 +101,7 @@ public class FileProcessor {
         }
         return destFile;
     }
-    /* End of methods from https://www.baeldung.com/java-compress-and-uncompress */
+    /** End of methods from https://www.baeldung.com/java-compress-and-uncompress */
 
     private Directory getDirectory(String name) {
         for (int i = 0; i < directoriesIncluded.size(); i++) {

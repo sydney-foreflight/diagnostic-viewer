@@ -1,7 +1,5 @@
-/* DataEntry.java is a data organization class. It tracks important information for each entry into diagnostic files,
+/** DataEntry.java is a data organization class. It tracks important information for each entry into diagnostic files,
     most notably from sync_insights and masterLog. Immutable class.
-   Author: Sydney Thompson
-   Date: 06/09/22
  */
 
 package com.foreflight.server.diagnosticviewer.datastructures;

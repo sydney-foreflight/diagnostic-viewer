@@ -76,11 +76,11 @@ public class DataAnalysis {
         return crashes;
     }
 
-    /* Returns an ArrayList of Sets of DataEntry for each crashLog. Each set contains all logs from different files
-        sorted by the time recorded.
-        @param minBefore the number of minutes before the crash to include in the Set
-        @param minAfter the number of minutes after the crash to include in the Set
-        @return an ArrayList of Sets that sorts DataEntries around the time of each crash
+    /** Returns an ArrayList of Sets of DataEntry for each crashLog. Each set contains all logs from different files
+     *  sorted by the time recorded.
+     *  @param minBefore the number of minutes before the crash to include in the Set
+     *  @param minAfter the number of minutes after the crash to include in the Set
+     *  @return an ArrayList of Sets that sorts DataEntries around the time of each crash
      */
     public ArrayList<Set<DataEntry>> getEntriesAroundCrashes(int minBefore, int minAfter) {
 

@@ -1,7 +1,5 @@
-/* DiagnosticInfo.java holds the main information from diagnostic reports. It directs the parsing of files and subsequent
-    data analysis.
-   Author: Sydney Thompson
-   Date: 06/09/22
+/** DiagnosticInfo.java holds the main information from diagnostic reports. It directs the parsing of files and subsequent
+ *    data analysis.
  */
 
 
@@ -27,7 +25,7 @@ public class DiagnosticInfo {
         crashes = new ArrayList<>();
     }
 
-    /* Main runner for DiagnosticInfo. Looks at what files are included and performs parsing,
+    /** Main runner for DiagnosticInfo. Looks at what files are included and performs parsing,
         then appropriate data collection and analysis. After parsing files, creates a DataAnalysis
         object.
         @return DataAnalysis object containing information parsed from diagnostic files to give caller access to
@@ -72,9 +70,10 @@ public class DiagnosticInfo {
     }
 
 
-    /* Returns list of directories that contain stack information.
+    /** Returns list of directories that contain stack information.
        @param directories1 the list of directories to search through
-       @return ArrayList of directories that hold stack reports (note: no stack attachments reports included */
+       @return ArrayList of directories that hold stack reports (note: no stack attachments reports included
+     */
     private static ArrayList<FileProcessor.Directory> getStackDirectories(ArrayList<FileProcessor.Directory> directories1) {
         ArrayList<FileProcessor.Directory> stackDirectories = new ArrayList<>();
         for (int i = 0; i < directories1.size(); i++) {
@@ -85,7 +84,7 @@ public class DiagnosticInfo {
         return stackDirectories;
     }
 
-    /* Finds file with the given name
+    /** Finds file with the given name
        @param name the name of the file to search for
        @param filesIncluded1 ArrayList of files to search through
        @return File if found ; null if not found
@@ -99,7 +98,7 @@ public class DiagnosticInfo {
         return null;
     }
 
-    /* Gets all the files within a given directory
+    /** Gets all the files within a given directory
        @param dirName the name of the directory to get files from
        @param directories1 list of directories to search for
        @return ArrayList of Files within the directory ; empty if directory not found
