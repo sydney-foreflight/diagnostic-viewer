@@ -1,5 +1,6 @@
-/** Message.java hold the specifics of each diagnostic entry. It takes the String and performs more analysis as needed.
-    It is an immutable data organization class.
+/**
+ * Message.java hold the specifics of each diagnostic entry. It takes the String and performs more analysis as needed.
+ * It is an immutable data organization class.
  */
 
 package com.foreflight.server.diagnosticviewer.datastructures;

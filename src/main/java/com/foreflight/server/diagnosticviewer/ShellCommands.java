@@ -1,4 +1,5 @@
-/** ShellCommands.java creates the commands the Spring Shell can run with.
+/**
+ * ShellCommands.java creates the commands the Spring Shell can run with.
  */
 
 
@@ -67,35 +68,41 @@ public class ShellCommands {
     public String timelines(int a, int b) {
         ArrayList<Set<DataEntry>> myEntries = analysis.getEntriesAroundCrashes(a, b);
         String s = "";
-        for(int i = 0; i < myEntries.size(); i++) {
+        for (int i = 0; i < myEntries.size(); i++) {
             s += "Crash " + i + ": \n" + analysis.getCrashes().get(i) + "\nDiagnostic Entries:\n";
             Iterator read = myEntries.get(i).iterator();
-            while(read.hasNext()) {
+            while (read.hasNext()) {
                 s += read.next() + "\n";
-            } s += "------------------------\n";
-        } return s;
+            }
+            s += "------------------------\n";
+        }
+        return s;
     }
 
     @ShellMethod("Getting flagged buckets")
     public String flagBuckets() {
         String s = "";
         ArrayList<BucketData> data = analysis.getFlaggedBuckets();
-        if(data.size() == 0) {
+        if (data.size() == 0) {
             return "No buckets had any pending changes.\n";
-        } for(int i = 0; i < data.size(); i++) {
+        }
+        for (int i = 0; i < data.size(); i++) {
             s += "\n" + data.get(i) + "\n-------------";
-        } return s;
+        }
+        return s;
     }
 
     @ShellMethod("Getting masterLog error messages")
     public String getErrors() {
         Set<DataEntry> errorEntries = analysis.getErrorMessages();
-        if(errorEntries.size() == 0) {
+        if (errorEntries.size() == 0) {
             return "No error messages in masterLog\n";
-        } String s = "";
+        }
+        String s = "";
         Iterator read = errorEntries.iterator();
-        while(read.hasNext()) {
+        while (read.hasNext()) {
             s += "\n" + read.next() + "\n";
-        } return s;
+        }
+        return s;
     }
 }

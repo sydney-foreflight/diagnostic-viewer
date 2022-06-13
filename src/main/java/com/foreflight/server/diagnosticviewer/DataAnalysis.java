@@ -5,14 +5,11 @@ import com.foreflight.server.diagnosticviewer.datastructures.Crash;
 import com.foreflight.server.diagnosticviewer.datastructures.DataEntry;
 import com.foreflight.server.diagnosticviewer.datastructures.Message;
 
-import javax.xml.crypto.Data;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class DataAnalysis {
@@ -76,11 +73,13 @@ public class DataAnalysis {
         return crashes;
     }
 
-    /** Returns an ArrayList of Sets of DataEntry for each crashLog. Each set contains all logs from different files
-     *  sorted by the time recorded.
-     *  @param minBefore the number of minutes before the crash to include in the Set
-     *  @param minAfter the number of minutes after the crash to include in the Set
-     *  @return an ArrayList of Sets that sorts DataEntries around the time of each crash
+    /**
+     * Returns an ArrayList of Sets of DataEntry for each crashLog. Each set contains all logs from different files
+     * sorted by the time recorded.
+     *
+     * @param minBefore the number of minutes before the crash to include in the Set
+     * @param minAfter  the number of minutes after the crash to include in the Set
+     * @return an ArrayList of Sets that sorts DataEntries around the time of each crash
      */
     public ArrayList<Set<DataEntry>> getEntriesAroundCrashes(int minBefore, int minAfter) {
 
@@ -126,10 +125,11 @@ public class DataAnalysis {
 
     public Set<DataEntry> getErrorMessages() {
         Set<DataEntry> errorEntries = new TreeSet<>(myCompare);
-        for(int i = 0; i < masterLogInfo.size(); i++) {
-            if(masterLogInfo.get(i).getClassName().equalsIgnoreCase("Error Message")) {
+        for (int i = 0; i < masterLogInfo.size(); i++) {
+            if (masterLogInfo.get(i).getClassName().equalsIgnoreCase("Error Message")) {
                 errorEntries.add(masterLogInfo.get(i));
             }
-        } return errorEntries;
+        }
+        return errorEntries;
     }
 }

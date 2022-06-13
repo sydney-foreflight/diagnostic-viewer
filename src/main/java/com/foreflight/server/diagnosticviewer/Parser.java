@@ -1,4 +1,5 @@
-/** Parser.java parses different files depending on the method called. Mainly used to re-organize data into Object-centric structure.
+/**
+ * Parser.java parses different files depending on the method called. Mainly used to re-organize data into Object-centric structure.
  */
 
 
@@ -44,8 +45,8 @@ public class Parser {
     }
 
     /** Parses stack files to create Crash objects.
-       @param stackDirect the directory to pull files from
-       @return an ArrayList of Crashes created
+     @param stackDirect the directory to pull files from
+     @return an ArrayList of Crashes created
      */
     public ArrayList<Crash> getStackCrashes(FileProcessor.Directory stackDirect) {
         ArrayList<Crash> stackCrashes = new ArrayList<>();
@@ -89,8 +90,8 @@ public class Parser {
     }
 
     /** Parses the sync_insights file. Note: will also populate buckets ArrayList if applicable.
-       @param file the file to parse
-       @return ArrayList of the data entries pulled from sync_insights
+     @param file the file to parse
+     @return ArrayList of the data entries pulled from sync_insights
      */
     public ArrayList<DataEntry> syncParser(File file) {
         ArrayList<DataEntry> myEntries = new ArrayList<>();
@@ -104,13 +105,10 @@ public class Parser {
                 Matcher m = datePattern.matcher(line);
                 if (m.find()) {
                     Scanner s = new Scanner(line);
-                    int id = s.nextInt();
-                    String dateAndTime = s.next() + " " + s.next();
-                    dateAndTime = dateAndTime.substring(0, dateAndTime.length() - 1);
-                    Date entry = format.parse(dateAndTime);
-                    s.next(); //going through '|'
-                    String loggerType = s.next();
-                    s.next(); // passing '|'
+                    ArrayList<String> basics = getBasics(s);
+                    int id = Integer.parseInt(basics.get(0));
+                    Date entry = format.parse(basics.get(1));
+                    String loggerType = basics.get(2);
                     line = line.substring(line.indexOf("[") + 1);
                     String className = line.substring(0, line.indexOf(" "));
                     String methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));
@@ -141,7 +139,7 @@ public class Parser {
 
 
     /** Parses the part of sync_insights that contains bucket info and stores data in buckets variable.
-       @param reader the BufferedReader used by syncParser in order to access appropriate section of sync_insights
+     @param reader the BufferedReader used by syncParser in order to access appropriate section of sync_insights
      */
     private void parseBucketData(BufferedReader reader) {
         String line;
@@ -196,8 +194,8 @@ public class Parser {
     }
 
     /** Parses the masterLog file by creating DataEntries. Will also call setUserDefaultsAndChangeSignatures if
-        needed to populate userDefaults and lastChangeAndShareSignatures.
-       @param file the file to parse
+     needed to populate userDefaults and lastChangeAndShareSignatures.
+     @param file the file to parse
      */
     public ArrayList<DataEntry> masterLogParser(File file) {
         //System.out.println(file.getName());
@@ -212,13 +210,10 @@ public class Parser {
                 Matcher m = datePattern.matcher(line);
                 if (m.find()) {
                     Scanner s = new Scanner(line);
-                    int id = s.nextInt();
-                    String dateAndTime = s.next() + " " + s.next();
-                    dateAndTime = dateAndTime.substring(0, dateAndTime.length() - 1);
-                    Date entry = format.parse(dateAndTime);
-                    s.next(); //going through '|'
-                    String loggerType = s.next();
-                    s.next(); // passing '|'
+                    ArrayList<String> basics = getBasics(s);
+                    int id = Integer.parseInt(basics.get(0));
+                    Date entry = format.parse(basics.get(1));
+                    String loggerType = basics.get(2);
                     String className = "";
                     String methodName = "";
                     String message = "";
@@ -227,7 +222,7 @@ public class Parser {
                         className = line.substring(0, line.indexOf(" "));
                         methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));
                         message = line.substring(line.indexOf("]") + 1);
-                    } else if(line.contains(":)")){
+                    } else if (line.contains(":)")) {
                         String combined = line.substring(line.indexOf(loggerType) + loggerType.length() + 3);
                         methodName = combined.substring(0, combined.indexOf("("));
                         String logging = combined.substring(combined.indexOf("("), combined.indexOf(")") + 1);
@@ -238,7 +233,7 @@ public class Parser {
                         message = logging + combined.substring(combined.indexOf(":") + 1);
                         r.close();
                     } else {
-                        className =  "Error Message";
+                        className = "Error Message";
                         message = line.substring(line.indexOf(loggerType) + loggerType.length() + 3);
                     }
                     s.close();
@@ -267,9 +262,21 @@ public class Parser {
         return myEntries;
     }
 
+    private ArrayList<String> getBasics(Scanner s) {
+        ArrayList<String> basics = new ArrayList<>();
+        basics.add(s.next());
+        String dateAndTime = s.next() + " " + s.next();
+        dateAndTime = dateAndTime.substring(0, dateAndTime.length() - 1);
+        basics.add(dateAndTime);
+        s.next(); //going through '|'
+        basics.add(s.next());
+        s.next(); // passing '|'
+        return basics;
+    }
+
     /** Called from masterLogParser. Will go through and add information to userDefaults and lastChangeAndShareSignatures based
-        on info from masterLog.
-       @param read the BufferedReader masterLogParser uses to access the correct section of the file
+     on info from masterLog.
+     @param read the BufferedReader masterLogParser uses to access the correct section of the file
      */
     private void setUserDefaultsAndChangeSignatures(BufferedReader read) {
         String line;

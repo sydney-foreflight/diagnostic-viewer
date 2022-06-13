@@ -1,4 +1,5 @@
-/** FileProcessor.java unzips a file and stores the file in the user-given directory.
+/**
+ * FileProcessor.java unzips a file and stores the file in the user-given directory.
  */
 
 package com.foreflight.server.diagnosticviewer;
@@ -101,6 +102,7 @@ public class FileProcessor {
         }
         return destFile;
     }
+
     /** End of methods from https://www.baeldung.com/java-compress-and-uncompress */
 
     private Directory getDirectory(String name) {
