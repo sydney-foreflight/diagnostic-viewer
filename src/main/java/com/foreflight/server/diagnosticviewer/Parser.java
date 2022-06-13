@@ -219,19 +219,27 @@ public class Parser {
                     s.next(); //going through '|'
                     String loggerType = s.next();
                     s.next(); // passing '|'
-                    String className;
-                    String methodName;
-                    String message;
+                    String className = "";
+                    String methodName = "";
+                    String message = "";
                     if (line.contains("[")) {
                         line = line.substring(line.indexOf("[") + 1);
                         className = line.substring(0, line.indexOf(" "));
                         methodName = line.substring(line.indexOf(" ") + 1, line.indexOf("]"));
                         message = line.substring(line.indexOf("]") + 1);
+                    } else if(line.contains(":)")){
+                        String combined = line.substring(line.indexOf(loggerType) + loggerType.length() + 3);
+                        methodName = combined.substring(0, combined.indexOf("("));
+                        String logging = combined.substring(combined.indexOf("("), combined.indexOf(")") + 1);
+                        combined = combined.substring(combined.indexOf(")") + 1);
+                        Scanner r = new Scanner(combined);
+                        logging += " " + r.nextInt();
+                        className = r.next();
+                        message = logging + combined.substring(combined.indexOf(":") + 1);
+                        r.close();
                     } else {
-                        String combined = s.next();
-                        className = combined.substring(0, combined.indexOf("("));
-                        methodName = combined.substring(combined.indexOf("("), combined.indexOf(")") + 1);
-                        message = line.substring(line.indexOf(")") + 1);
+                        className =  "Error Message";
+                        message = line.substring(line.indexOf(loggerType) + loggerType.length() + 3);
                     }
                     s.close();
                     //System.out.println(id + " " + dateAndTime + " " + methodName);

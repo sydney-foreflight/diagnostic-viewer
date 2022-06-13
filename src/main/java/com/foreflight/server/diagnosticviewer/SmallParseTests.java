@@ -23,7 +23,7 @@ public class SmallParseTests {
 
         p.syncParser(myFile);
         //System.out.println(p.getBuckets());
-        File masterFile = new File("/Users/sydney/Downloads/48177-Diagnostics/masterLog");
+        File masterFile = new File("/Users/sydney/Downloads/51992-Jeremy-Katz-Diagnostics/masterLog");
         p.masterLogParser(masterFile);
         //System.out.println(p.getUserDefaults() + p.getLastChangeAndShareSignatures());
 

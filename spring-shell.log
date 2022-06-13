@@ -74,3 +74,9 @@
 1654892247995:unzip
 1654892257451:flag-buckets
 1654892273434:quit
+1655133026760:set-zip /Users/sydney/Downloads/51992-Jeremy-Katz-Diagnostics.zip
+1655133042111:set-save-dir /Users/sydney/Documents/testing3
+1655133044573:unzip
+1655133053111:help
+1655133065662:get-crashes
+1655133072966:get-errors

@@ -28,11 +28,11 @@
             <version>2.0.1.RELEASE</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.foreflight.server</groupId>
             <artifactId>syncserver-api</artifactId>
             <version>1-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

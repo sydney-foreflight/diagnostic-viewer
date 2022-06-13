@@ -86,4 +86,16 @@ public class ShellCommands {
             s += "\n" + data.get(i) + "\n-------------";
         } return s;
     }
+
+    @ShellMethod("Getting masterLog error messages")
+    public String getErrors() {
+        Set<DataEntry> errorEntries = analysis.getErrorMessages();
+        if(errorEntries.size() == 0) {
+            return "No error messages in masterLog\n";
+        } String s = "";
+        Iterator read = errorEntries.iterator();
+        while(read.hasNext()) {
+            s += "\n" + read.next() + "\n";
+        } return s;
+    }
 }

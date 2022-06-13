@@ -123,4 +123,13 @@ public class DataAnalysis {
         allEntries.addAll(masterLogInfo);
         return allEntries;
     }
+
+    public Set<DataEntry> getErrorMessages() {
+        Set<DataEntry> errorEntries = new TreeSet<>(myCompare);
+        for(int i = 0; i < masterLogInfo.size(); i++) {
+            if(masterLogInfo.get(i).getClassName().equalsIgnoreCase("Error Message")) {
+                errorEntries.add(masterLogInfo.get(i));
+            }
+        } return errorEntries;
+    }
 }
